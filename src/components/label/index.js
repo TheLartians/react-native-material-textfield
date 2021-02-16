@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Animated } from 'react-native';
+import { Platform, Animated } from 'react-native';
 
 import styles from './styles';
 
@@ -104,7 +104,7 @@ export default class Label extends PureComponent {
       }, {
         translateX: labelAnimation.interpolate({
           inputRange: [0, 1],
-          outputRange: [x0, x1 - fontSize],
+          outputRange: [x0, Platform.select({default: x1, web: x1 - fontSize})],
         }),
       }],
     };
