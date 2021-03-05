@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { PureComponent } from 'react';
-import { Animated, Text } from 'react-native';
+import { Platform, Animated } from 'react-native';
 
 import styles from './styles';
 
@@ -43,7 +43,7 @@ export default class Label extends PureComponent {
       y1: PropTypes.number,
     }),
 
-    style: Text.propTypes.style,
+    style: PropTypes.any,
     label: PropTypes.string,
   };
 
@@ -104,7 +104,7 @@ export default class Label extends PureComponent {
       }, {
         translateX: labelAnimation.interpolate({
           inputRange: [0, 1],
-          outputRange: [x0, x1],
+          outputRange: [x0, Platform.select({default: x1, web: x1 - fontSize})],
         }),
       }],
     };
